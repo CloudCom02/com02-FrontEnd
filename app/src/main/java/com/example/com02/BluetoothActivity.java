@@ -14,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.telephony.ims.RcsUceAdapter;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -27,22 +26,18 @@ import android.content.pm.PackageManager;
 
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
-public class BluetoothMainActivity extends AppCompatActivity {
+public class BluetoothActivity extends AppCompatActivity {
 
     private final static int REQUEST_ENABLE_BT = 1;
 
     Button btnSearch;
     ListView listPaired, listSearch;
-
-    BluetoothAdapter btAdapter;
     BluetoothDevice bluetoothDevice;
     Set<BluetoothDevice> devices;
     ArrayAdapter<String> btArrayAdapter;
@@ -54,7 +49,7 @@ public class BluetoothMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bluetooth_main);
+        setContentView(R.layout.activity_bluetooth);
 
         btnSearch = (Button) findViewById(R.id.btnSearch);
         listPaired = (ListView) findViewById(R.id.listPaired);
@@ -74,16 +69,6 @@ public class BluetoothMainActivity extends AppCompatActivity {
                 Manifest.permission.BLUETOOTH_CONNECT,
                 Manifest.permission.BLUETOOTH_PRIVILEGED
         };
-        String[] PERMISSIONS_LOCATION = {
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
-                Manifest.permission.BLUETOOTH_SCAN,
-                Manifest.permission.BLUETOOTH_CONNECT,
-                Manifest.permission.BLUETOOTH_PRIVILEGED
-        };
-        ActivityCompat.requestPermissions(BluetoothMainActivity.this, PERMISSIONS_STORAGE,1);
-
 
         // Enable bluetooth
         BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -119,6 +104,7 @@ public class BluetoothMainActivity extends AppCompatActivity {
             for (BluetoothDevice device : devices) {
                 pairedDevList.add(device.getName());
                 System.out.println("디바이스 담는 중");
+                device.getBluetoothClass();
             }
             final CharSequence[] charSequences = pairedDevList.toArray(new CharSequence[pairedDevList.size()]);
             pairedDevList.toArray(new CharSequence[pairedDevList.size()]);
@@ -169,27 +155,6 @@ public class BluetoothMainActivity extends AppCompatActivity {
                 new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 150);
         startActivity(discoverableIntent);
-
-        /*
-        // Check if the device is already discovering
-        if(btAdapter.isDiscovering()){
-            btAdapter.cancelDiscovery();
-        } else {
-            if (btAdapter.isEnabled()) {
-                btAdapter.startDiscovery();
-                btArrayAdapter.clear();
-                if (deviceAddressArray != null && !deviceAddressArray.isEmpty()) {
-                    deviceAddressArray.clear();
-                }
-                IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-                registerReceiver(receiver, filter);
-            } else {
-                Toast.makeText(getApplicationContext(), "bluetooth not on", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-         */
-
     }
 
 
