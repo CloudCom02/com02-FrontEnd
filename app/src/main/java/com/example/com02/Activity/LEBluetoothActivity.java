@@ -1,7 +1,8 @@
-package com.example.com02;
+package com.example.com02.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.bluetooth.BluetoothGatt;
 import android.os.Handler;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -20,9 +21,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
+import com.example.com02.PermissionCheck;
+import com.example.com02.R;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,7 +34,6 @@ import java.util.ArrayList;
 
 public class LEBluetoothActivity extends Activity {
     // extends ListActivity
-
     private PermissionCheck permission;
 
     private static final int REQUEST_ENABLE_BT = 99;
@@ -42,6 +44,7 @@ public class LEBluetoothActivity extends Activity {
     private BluetoothDevice bluetoothDevice;
     //private BTAdapter deviceAdapter;
     private LeDeviceListAdapter leDeviceListAdapter;
+    BluetoothAdapter.LeScanCallback gattCallback = null;
 
     ArrayList<BluetoothDevice> deviceList = new ArrayList<>();
     ArrayList<Integer> rssiList = new ArrayList<>();
@@ -75,6 +78,10 @@ public class LEBluetoothActivity extends Activity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
+        // scanLeDevice(enable);
+        // connect
+        BluetoothGatt bluetoothGatt = bluetoothDevice.connectGatt(this, false, gattCallback);
+        // 얘 위치를 어디로 해야하는지. 스캔? 함수 안에 넣어야하나?
 
     }
 
@@ -103,12 +110,6 @@ public class LEBluetoothActivity extends Activity {
 
 
     // [Scan] 디바이스 스캔
-    /*
-    특정 유형의 주변 장치만 스캔하고 싶다면
-    startLeScan(UUID[], BluetoothAdapter.LeScanCallback)를 호출하여
-    앱이 지원하는 GATT 서비스를 지정하는 UUID 객체의 배열을 제공해야 합니다.
-     */
-
     @SuppressLint("MissingPermission")
     private void scanLeDevice(final boolean enable){
         if (enable){
@@ -118,19 +119,19 @@ public class LEBluetoothActivity extends Activity {
                 @Override
                 public void run(){
                     scanning = false;
-                    bluetoothAdapter.stopLeScan(leScanCallback);
+                    bluetoothAdapter.stopLeScan(scanCallback);
                 }
             }, SCAN_PERIOD);
 
             scanning = true;
-            bluetoothAdapter.startLeScan(leScanCallback);
+            bluetoothAdapter.startLeScan(scanCallback);
         } else{
             scanning = false;
-            bluetoothAdapter.stopLeScan(leScanCallback);
+            bluetoothAdapter.stopLeScan(scanCallback);
         }
     }
 
-    private BluetoothAdapter.LeScanCallback leScanCallback =
+    private BluetoothAdapter.LeScanCallback scanCallback =
             new BluetoothAdapter.LeScanCallback() {
                 @Override
                 public void onLeScan(final BluetoothDevice device, int rssi,
@@ -143,6 +144,7 @@ public class LEBluetoothActivity extends Activity {
                         }
                     });
                 }
+
             };
 
 
@@ -218,6 +220,13 @@ public class LEBluetoothActivity extends Activity {
             return view;
         }
     }
+
+
+
+    // [Connect]
+
+
+
 
     @Override
     protected void onResume(){

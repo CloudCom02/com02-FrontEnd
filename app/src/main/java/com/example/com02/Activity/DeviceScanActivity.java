@@ -1,4 +1,4 @@
-package com.example.com02;
+package com.example.com02.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -20,8 +20,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.com02.R;
+
 import java.util.ArrayList;
-import java.util.UUID;
 
 //LeDeviceListAdapter : 저전력 블루투스 BLE 사용 activity
 public class DeviceScanActivity extends ListActivity {
@@ -43,8 +45,6 @@ public class DeviceScanActivity extends ListActivity {
             Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
             finish();
         }
-        // Initializes a Bluetooth adapter.  For API level 18 and above, get a reference to
-        // BluetoothAdapter through BluetoothManager.
         final BluetoothManager bluetoothManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
@@ -101,6 +101,7 @@ public class DeviceScanActivity extends ListActivity {
         setListAdapter(mLeDeviceListAdapter);
         scanLeDevice(true);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // User chose not to enable Bluetooth.
@@ -110,12 +111,16 @@ public class DeviceScanActivity extends ListActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     @Override
     protected void onPause() {
         super.onPause();
         scanLeDevice(false);
         mLeDeviceListAdapter.clear();
     }
+
+
+    // when pick the device in the list
     @Override
     @SuppressLint("MissingPermission")
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -150,6 +155,7 @@ public class DeviceScanActivity extends ListActivity {
         }
         invalidateOptionsMenu();
     }
+
     // Adapter for holding devices found through scanning.
     private class LeDeviceListAdapter extends BaseAdapter {
         private ArrayList<BluetoothDevice> mLeDevices;
@@ -182,9 +188,12 @@ public class DeviceScanActivity extends ListActivity {
         public long getItemId(int i) {
             return i;
         }
+
+
+
+        /****** 여기 LEBluetohActivity와 겹치는 부분, 어느 곳에 둘지 *******/
         @Override
         @SuppressLint("MissingPermission")
-        /****** 여기 LEBluettohActivity와 겹치는 부분, 어느 곳에 둘지 *******/
         public View getView(int i, View view, ViewGroup viewGroup) {
             ViewHolder viewHolder;
             // General ListView optimization code.
