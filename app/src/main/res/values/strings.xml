@@ -5,6 +5,7 @@
     <string name="ble_not_supported">블루투스 미지원</string>
     <string name="error_bluetooth_not_supported">블루투스 미지원 오류</string>
     <string name="title_activity_device_control">DeviceControlActivity</string>
+    <string name="no_data">데이터 없음</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

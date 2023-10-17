@@ -1,5 +1,7 @@
 package com.example.com02.Activity;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ListActivity;
@@ -11,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,15 +42,17 @@ public class DeviceScanActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         getActionBar().setTitle(R.string.title_devices);
         mHandler = new Handler();
-        // Use this check to determine whether BLE is supported on the device.  Then you can
-        // selectively disable BLE-related features.
+
+        // Check to determine whether BLE is supported on the device.
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
             finish();
         }
+
         final BluetoothManager bluetoothManager =
                 (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
+
         // Checks if Bluetooth is supported on the device.
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, R.string.error_bluetooth_not_supported, Toast.LENGTH_SHORT).show();
@@ -55,6 +60,8 @@ public class DeviceScanActivity extends ListActivity {
             return;
         }
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -67,7 +74,7 @@ public class DeviceScanActivity extends ListActivity {
             menu.findItem(R.id.menu_scan).setVisible(false);
             menu.findItem(R.id.menu_refresh).setActionView(
                     R.layout.bluetooth_device_list);
-            /******* layout.bt_device_list가 맞는지 모르겟음 ********/
+            //R.layout.actionbar_indeterminate_progress
         }
         return true;
     }
@@ -96,6 +103,7 @@ public class DeviceScanActivity extends ListActivity {
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
         }
+
         // Initializes list view adapter.
         mLeDeviceListAdapter = new LeDeviceListAdapter();
         setListAdapter(mLeDeviceListAdapter);
@@ -190,8 +198,6 @@ public class DeviceScanActivity extends ListActivity {
         }
 
 
-
-        /****** 여기 LEBluetohActivity와 겹치는 부분, 어느 곳에 둘지 *******/
         @Override
         @SuppressLint("MissingPermission")
         public View getView(int i, View view, ViewGroup viewGroup) {
@@ -216,7 +222,9 @@ public class DeviceScanActivity extends ListActivity {
             return view;
         }
     }
-    // Device scan callback.
+
+
+    // Device scan callback
     private BluetoothAdapter.LeScanCallback mLeScanCallback =
             new BluetoothAdapter.LeScanCallback() {
                 @Override

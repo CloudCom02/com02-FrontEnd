@@ -1,5 +1,7 @@
 package com.example.com02.Service;
 
+import static com.example.com02.Activity.SampleGattAttributes.UUID_NOTIFICATION;
+
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -7,6 +9,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothGattService;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
@@ -16,10 +19,17 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.example.com02.Activity.DeviceControlActivity;
+import com.example.com02.Activity.SampleGattAttributes;
+
 import java.util.List;
+import java.util.UUID;
 
 public class BluetoothLeService extends Service {
     private final static String TAG = BluetoothLeService.class.getSimpleName();
+
+    private final static UUID BATTERY_SERVICE_UUID = UUID.fromString("0000180F-0000-1000-8000-00805f9b34fb");
+    private final static UUID BATTERY_LEVEL_UUID = UUID.fromString("00002a19-0000-1000-8000-00805f9b34fb");
 
     private BluetoothManager bluetoothManager;
     private BluetoothAdapter bluetoothAdapter;
@@ -99,13 +109,34 @@ public class BluetoothLeService extends Service {
         sendBroadcast(intent);
     }
 
+
     private void broadcastUpdate(final String action, BluetoothGattCharacteristic characteristic){
         final Intent intent = new Intent(action);
-        //예제 : 심장박동 디바이스 관련 로직
-        //special handling for the bluetooth device TO DO
+
+        // 장치의 배터리 값
+        Log.v(TAG, "characteristic.getStringValue(0) ="
+                + characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0));
+        intent.putExtra(DeviceControlActivity.EXTRAS_DEVICE_BATTERY,
+                Character.highSurrogate(characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, 0)));
         sendBroadcast(intent);
+    }
 
 
+    // 프로필로부터 배터리 정보 가져오기
+    @SuppressLint("MissingPermission")
+    public void getBattery(){
+        BluetoothGattService batteryService = bluetoothGatt.getService(BATTERY_SERVICE_UUID);
+        if(batteryService == null){
+            Log.d(TAG, "Battery service not found!");
+            return;
+        }
+        BluetoothGattCharacteristic batteryLevel = batteryService.getCharacteristic(BATTERY_LEVEL_UUID);
+        if(batteryLevel == null){
+            Log.d(TAG, "Battery level not found!");
+            return;
+        }
+        bluetoothGatt.readCharacteristic(batteryLevel);
+        Log.v(TAG, "batteryLevel = " + bluetoothGatt.readCharacteristic(batteryLevel));
     }
 
 
@@ -154,11 +185,27 @@ public class BluetoothLeService extends Service {
     }
 
 
+    // 블루투스 디바이스 상태 변화 시 알림
+    @SuppressLint("MissingPermission")
+    public void setCharacteristicNotification(BluetoothGattCharacteristic characteristic, boolean enabled) {
+        if (bluetoothAdapter == null || bluetoothGatt == null) {
+            Log.w(TAG, "BluetoothAdapter not initialized");
+            return;
+        }
+        bluetoothGatt.setCharacteristicNotification(characteristic, enabled);
+
+        if (UUID_NOTIFICATION.equals(characteristic.getUuid())) {
+            BluetoothGattDescriptor descriptor = characteristic.getDescriptor(
+                    UUID.fromString(SampleGattAttributes.CLIENT_CHARACTERISTIC_CONFIG));
+            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+            bluetoothGatt.writeDescriptor(descriptor);
+        }
+    }
 
 
     // Binder: 서로 다른 프로세스에 위치한 자원 & 코드 연결 (다른 프로세스의 함수 실행)
     public class LocalBinder extends Binder {
-        BluetoothLeService getService(){return BluetoothLeService.this;}
+        public BluetoothLeService getService(){return BluetoothLeService.this;}
     }
 
     // Binder 호출 & 프로세스 간 재귀작업 등
