@@ -19,4 +19,6 @@
         android:text="deviceName"
         tools:layout_editor_absoluteX="214dp"
         tools:layout_editor_absoluteY="108dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
