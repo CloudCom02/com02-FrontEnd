@@ -16,18 +16,6 @@
     <uses-permission android:name="android.bluetooth.device.extra.BATTERY_LEVEL" />
     <uses-permission android:name="android.bluetooth.headset.profile.action.AUDIO_STATE_CHANGED" />
     <uses-permission android:name="android.bluetooth.headset.action.HF_INDICATORS_VALUE_CHANGED" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission
-        android:name="android.permission.BLUETOOTH_SCAN"
-        android:usesPermissionFlags="neverForLocation"
-        tools:targetApi="s" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission
-        android:name="android.permission.BLUETOOTH_PRIVILEGED"
-        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -56,21 +44,6 @@
         <activity
             android:name=".Activity.DeviceControlActivity"
             android:theme="@style/Theme.Com02.NoActionBar" />
-        <activity
-            android:name=".JoinActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
