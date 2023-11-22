@@ -42,6 +42,10 @@
                  android:exported="true" />
 
         <activity
+            android:name=".Activity.DeviceScanActivity"
+            android:enabled="true"  />
+
+        <activity
             android:name=".Activity.DeviceControlActivity"
             android:theme="@style/Theme.Com02.NoActionBar" />
     </application>

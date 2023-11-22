@@ -15,7 +15,11 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,11 +35,11 @@ import java.util.Set;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
-    TextView bluetoothStatus;
     TextView receiveData;
-    Button btnBluetoothOn;
-    Button btnBluetoothOff;
+    Button btnBluetoothOnOff;
     Button btnConnect;
+    ListView listPaired;
+    ListView listSearch;
 
     BluetoothAdapter bluetoothAdapter;
     Set<BluetoothDevice> pairedDevices;
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     BluetoothDevice bluetoothDevice;
     BluetoothSocket bluetoothSocket;
 
+
     final static int BT_REQUEST_ENABLE = 1;
     final static int BT_MESSAGE_READ = 2;
     final static int BT_CONNECTING_STATUS = 3;
@@ -55,34 +60,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bluetoothStatus = (TextView)findViewById(R.id.tvBluetoothStatus);
         receiveData = (TextView)findViewById(R.id.tvReceiveData);
-        btnBluetoothOn = (Button)findViewById(R.id.btnBluetoothOn);
-        btnBluetoothOff = (Button)findViewById(R.id.btnBluetoothOff);
+        btnBluetoothOnOff = (Button)findViewById(R.id.btnBluetoothOn);
         btnConnect = (Button)findViewById(R.id.btnConnect);
+        listPaired = (ListView)findViewById(R.id.listPaired);
+        listSearch = (ListView)findViewById(R.id.listSearch);
+
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        btnBluetoothOnOff.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bluetoothOnOff();
+            }
+        });
 
-        btnBluetoothOn.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bluetoothOn();
-            }
-        });
-        btnBluetoothOff.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bluetoothOff();
-            }
-        });
         btnConnect.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listPairedDevices();
             }
         });
-
-
 
         // 핸들러 생성
         bluetoothHandler = new Handler(){
@@ -102,31 +100,20 @@ public class MainActivity extends AppCompatActivity {
 
     // Bluetooth On & Off
     @SuppressLint("MissingPermission")
-    void bluetoothOn() {
-        if(bluetoothAdapter == null) {
+    void bluetoothOnOff() {
+        if (bluetoothAdapter == null) {
             Toast.makeText(getApplicationContext(), "블루투스를 지원하지 않는 기기입니다.", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             if (bluetoothAdapter.isEnabled()) {
-                Toast.makeText(getApplicationContext(), "블루투스가 이미 활성화 되어 있습니다.", Toast.LENGTH_LONG).show();
-                bluetoothStatus.setText("활성화");
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "블루투스가 활성화 되어 있지 않습니다.", Toast.LENGTH_LONG).show();
+                bluetoothAdapter.disable();
+                Toast.makeText(getApplicationContext(), "블루투스 비활성화", Toast.LENGTH_LONG).show();
+                btnBluetoothOnOff.setText("블루투스 ON");
+            } else {
                 Intent intentBluetoothEnable = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(intentBluetoothEnable, BT_REQUEST_ENABLE);
+                Toast.makeText(getApplicationContext(), "블루투스 활성화", Toast.LENGTH_LONG).show();
+                btnBluetoothOnOff.setText("블루투스 OFF");
             }
-        }
-    }
-    @SuppressLint("MissingPermission")
-    void bluetoothOff() {
-        if (bluetoothAdapter.isEnabled()) {
-            bluetoothAdapter.disable();
-            Toast.makeText(getApplicationContext(), "블루투스가 비활성화 되었습니다.", Toast.LENGTH_SHORT).show();
-            bluetoothStatus.setText("비활성화");
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "블루투스가 이미 비활성화 되어 있습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -165,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "블루투스가 비활성화 되어 있습니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
     @SuppressLint("MissingPermission")
     void connectSelectedDevice(String selectedDeviceName) {
         for(BluetoothDevice tempDevice : pairedDevices) {
