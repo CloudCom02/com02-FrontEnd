@@ -1,29 +1,24 @@
-package com.example.com02.Activity;
+package com.example.com02;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.os.Bundle;
 
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.com02.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     TextView receiveData;
     Button btnBluetoothOnOff;
     Button btnConnect;
+    Button btnSearch;
     ListView listPaired;
     ListView listSearch;
 
@@ -54,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     final static int BT_REQUEST_ENABLE = 1;
     final static int BT_MESSAGE_READ = 2;
     final static int BT_CONNECTING_STATUS = 3;
-    @SuppressLint("HandlerLeak")    // handler class의 외부 클래스 참조 유지를 방지
+    @SuppressLint({"HandlerLeak", "MissingInflatedId"})    // handler class의 외부 클래스 참조 유지를 방지
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
         receiveData = (TextView)findViewById(R.id.tvReceiveData);
         btnBluetoothOnOff = (Button)findViewById(R.id.btnBluetoothOn);
         btnConnect = (Button)findViewById(R.id.btnConnect);
+        btnSearch = (Button)findViewById(R.id.btnSearch);
         listPaired = (ListView)findViewById(R.id.listPaired);
-        listSearch = (ListView)findViewById(R.id.listSearch);
+        listSearch = (ListView)findViewById(android.R.id.list);
 
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -74,13 +71,20 @@ public class MainActivity extends AppCompatActivity {
                 bluetoothOnOff();
             }
         });
-
         btnConnect.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listPairedDevices();
             }
         });
+        btnSearch.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent BLEintent = new Intent(getApplicationContext(), DeviceScanActivity.class);
+                startActivity(BLEintent);
+            }
+        });
+
 
         // 핸들러 생성
         bluetoothHandler = new Handler(){
@@ -124,9 +128,6 @@ public class MainActivity extends AppCompatActivity {
             pairedDevices = bluetoothAdapter.getBondedDevices();
 
             if (pairedDevices.size() > 0) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("장치 선택");
-
                 listPairedDevices = new ArrayList<String>();
                 for (BluetoothDevice device : pairedDevices) {
                     listPairedDevices.add(device.getName());
@@ -135,15 +136,17 @@ public class MainActivity extends AppCompatActivity {
                 final CharSequence[] items = listPairedDevices.toArray(new CharSequence[listPairedDevices.size()]);
                 listPairedDevices.toArray(new CharSequence[listPairedDevices.size()]);
 
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                        android.R.layout.simple_list_item_1, listPairedDevices);
+                listPaired.setAdapter(adapter);
+
                 // 목록 클릭 시
-                builder.setItems(items, new DialogInterface.OnClickListener() {
+                listPaired.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int item) {
+                    public void onItemClick(AdapterView<?> adapterView, View view, int item, long l) {
                         connectSelectedDevice(items[item].toString());
                     }
                 });
-                AlertDialog alert = builder.create();
-                alert.show();
             } else {
                 Toast.makeText(getApplicationContext(), "페어링된 장치가 없습니다.", Toast.LENGTH_LONG).show();
             }

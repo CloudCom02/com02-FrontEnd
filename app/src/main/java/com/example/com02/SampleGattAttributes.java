@@ -1,4 +1,4 @@
-package com.example.com02.Activity;
+package com.example.com02;
 import java.util.HashMap;
 import java.util.UUID;
 

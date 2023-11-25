@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity">
+    tools:context=".MainActivity">
 
 
     <ListView
         android:id="@+id/listPaired"
-        android:layout_width="363dp"
-        android:layout_height="202dp"
+        android:layout_width="308dp"
+        android:layout_height="199dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,9 +30,9 @@
         app:layout_constraintVertical_bias="0.084" />
 
     <ListView
-        android:id="@+id/listSearch"
-        android:layout_width="364dp"
-        android:layout_height="254dp"
+        android:id="@android:id/list"
+        android:layout_width="316dp"
+        android:layout_height="253dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
@@ -54,25 +54,25 @@
 
     <Button
         android:id="@+id/btnBluetoothOn"
-        android:layout_width="171dp"
-        android:layout_height="45dp"
+        android:layout_width="137dp"
+        android:layout_height="41dp"
         android:text="블루투스 ON"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.946" />
+        app:layout_constraintVertical_bias="0.947" />
 
     <Button
         android:id="@+id/btnConnect"
-        android:layout_width="177dp"
-        android:layout_height="42dp"
+        android:layout_width="137dp"
+        android:layout_height="43dp"
         android:layout_marginTop="10dp"
-        android:text="연결하기"
+        android:text="기기 찾기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintHorizontal_bias="0.832"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.946" />
@@ -84,6 +84,18 @@
         android:text="Receive"
         tools:layout_editor_absoluteX="338dp"
         tools:layout_editor_absoluteY="31dp" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="138dp"
+        android:layout_height="37dp"
+        android:text="기기검색"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.459" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

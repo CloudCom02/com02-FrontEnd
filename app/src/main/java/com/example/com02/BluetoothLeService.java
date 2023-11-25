@@ -1,6 +1,6 @@
-package com.example.com02.Service;
+package com.example.com02;
 
-import static com.example.com02.Activity.SampleGattAttributes.UUID_NOTIFICATION;
+import static com.example.com02.SampleGattAttributes.UUID_NOTIFICATION;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -18,9 +18,6 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-
-import com.example.com02.Activity.DeviceControlActivity;
-import com.example.com02.Activity.SampleGattAttributes;
 
 import java.util.List;
 import java.util.UUID;

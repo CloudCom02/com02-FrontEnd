@@ -1,4 +1,4 @@
-package com.example.com02.Activity;
+package com.example.com02;
 
 import static androidx.fragment.app.FragmentManager.TAG;
 
@@ -8,8 +8,6 @@ import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 
-import com.example.com02.R;
-import com.example.com02.Service.BluetoothLeService;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +27,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.com02.databinding.ActivityDeviceControlBinding;
 
 import java.util.ArrayList;
-
+// BLE Service와 characteristic 표시 및 클릭 시 그에 해당하는 액션 수행
 public class DeviceControlActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;

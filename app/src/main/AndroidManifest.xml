@@ -29,7 +29,7 @@
 
 
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
               <action android:name="android.intent.action.MAIN"/>
@@ -37,17 +37,18 @@
              </intent-filter>
         </activity>
 
-        <service android:name=".Service.BluetoothLeService"
+        <service android:name=".BluetoothLeService"
                  android:enabled="true"
                  android:exported="true" />
 
         <activity
-            android:name=".Activity.DeviceScanActivity"
-            android:enabled="true"  />
-
-        <activity
-            android:name=".Activity.DeviceControlActivity"
+            android:name=".DeviceControlActivity"
             android:theme="@style/Theme.Com02.NoActionBar" />
+
+        <activity android:name=".DeviceScanActivity"
+            android:enabled="true"
+            android:exported="true" />
     </application>
+
 
 </manifest>

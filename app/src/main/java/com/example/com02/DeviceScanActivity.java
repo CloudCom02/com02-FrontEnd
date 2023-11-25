@@ -1,6 +1,4 @@
-package com.example.com02.Activity;
-
-import static androidx.fragment.app.FragmentManager.TAG;
+package com.example.com02;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -13,7 +11,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,13 +20,13 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.com02.R;
+//import static androidx.fragment.app.FragmentManager.TAG;
 
 import java.util.ArrayList;
 
-//LeDeviceListAdapter : 저전력 블루투스 BLE 사용 activity
+
 public class DeviceScanActivity extends ListActivity {
+    ListView listSearch;
     private LeDeviceListAdapter mLeDeviceListAdapter;
     private BluetoothAdapter mBluetoothAdapter;
     private boolean mScanning;
@@ -40,7 +37,11 @@ public class DeviceScanActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setTitle(R.string.title_devices);
+        setContentView(R.layout.activity_main);
+
+        listSearch = (ListView) findViewById(android.R.id.list);
+
+        //getActionBar().setTitle(R.string.title_devices);
         mHandler = new Handler();
 
         // Check to determine whether BLE is supported on the device.
@@ -165,6 +166,8 @@ public class DeviceScanActivity extends ListActivity {
     }
 
     // Adapter for holding devices found through scanning.
+    // 저전력 블루투스 BLE 사용 activity
+    // BT Device add & get 하기 위함
     private class LeDeviceListAdapter extends BaseAdapter {
         private ArrayList<BluetoothDevice> mLeDevices;
         private LayoutInflater mInflator;
