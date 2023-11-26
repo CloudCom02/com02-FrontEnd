@@ -16,6 +16,8 @@
     <uses-permission
         android:name="android.permission.BLUETOOTH_PRIVILEGED"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -25,18 +27,13 @@
         android:label="아맞다충전"
         android:supportsRtl="true"
         android:theme="@style/Theme.Com02"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".JoinActivity"
+            android:name=".Join2Activity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BluetoothMainActivity"
+            android:name=".Join1Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,6 +41,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".BluetoothMainActivity"
+            android:exported="false"></activity>
     </application>
 
 </manifest>
