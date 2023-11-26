@@ -313,7 +313,7 @@
             android:textColor="#FD4343"
             android:layout_below="@id/propertyTable"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="40dp" />
 
         <!-- "내 기기에 추가" 버튼 -->
         <Button
