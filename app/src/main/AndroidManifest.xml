@@ -5,11 +5,13 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
-                     android:usesPermissionFlags="neverForLocation"
-                     tools:targetApi="s" />
-    <uses-permission android:name="android.bluetooth.hardware.bluetooth_le"
-                     android:requiredFeature="false" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
+    <uses-permission
+        android:name="android.bluetooth.hardware.bluetooth_le"
+        android:requiredFeature="false" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.bluetooth.device.action.BATTERY_LEVEL_CHANGED" />
@@ -26,29 +28,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Com02"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".BluetoothMainActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-              <action android:name="android.intent.action.MAIN"/>
-              <category android:name="android.intent.category.LAUNCHER"/>
-             </intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
-        <service android:name=".BluetoothLeService"
-                 android:enabled="true"
-                 android:exported="true" />
+        <service
+            android:name=".BluetoothLeService"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity
             android:name=".DeviceControlActivity"
             android:theme="@style/Theme.Com02.NoActionBar" />
-
-<!--        <activity android:name=".DeviceScanActivity"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true" />-->
     </application>
-
 
 </manifest>
