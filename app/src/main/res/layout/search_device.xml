@@ -11,6 +11,7 @@
     <!-- prev_view_btn 이미지 버튼 -->
     <ImageButton
         android:id="@+id/prevViewButton"
+        android:contentDescription="이전으로 버튼"
         android:layout_width="50dp"
         android:layout_height="75dp"
         android:scaleType="fitCenter"
@@ -38,11 +39,13 @@
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
+            android:imeOptions="actionDone"
+            android:inputType="textImeMultiLine"
             android:layout_height="50dp"
-            android:layout_below="@id/logoImageView"
             android:layout_marginStart="8dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="6dp"
+            android:maxLines="1"
             android:background="@drawable/click_white_box"
             android:hint="검색어를 입력하세요"
             android:paddingHorizontal="9dp"
@@ -63,124 +66,27 @@
             android:background="@android:color/transparent"
             android:src="@drawable/search_btn" />
 
-        <GridLayout
-            android:id="@+id/blockGridLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/deivce_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@id/addButton"
             android:layout_below="@id/searchEditText"
-            android:layout_marginTop="16dp"
-            android:columnCount="2">
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
 
-            <!-- 상단 블럭 (사진 공간) -->
-            <LinearLayout
-                android:id="@+id/block1"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/click_white_box"
-                android:orientation="vertical">
-
-                <!-- 이미지 -->
-                <ImageView
-                    android:id="@+id/block1ImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:layout_margin="6dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/product_image" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.9dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@android:color/black" />
-
-                <!-- Name 텍스트 -->
-                <TextView
-                    android:id="@+id/block1NameTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:gravity="center"
-                    android:text="JBL GO 3"
-                    android:textSize="15sp" />
-
-                <!-- Type 텍스트 -->
-                <TextView
-                    android:id="@+id/block1TypeTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:gravity="center"
-                    android:text="무선 블루투스 스피커"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="10sp" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:background="@drawable/click_white_box"
-                android:id="@+id/block2"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:orientation="vertical">
-
-                <!-- 이미지 -->
-                <ImageView
-                    android:id="@+id/block2ImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    android:layout_margin="6dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/product_image" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_height="0.9dp"
-                    android:background="@android:color/black" />
-
-                <!-- Name 텍스트 -->
-                <TextView
-                    android:id="@+id/block2NameTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="JBL GO 3"
-                    android:layout_marginTop="3dp"
-                    android:textSize="15sp"
-                    android:gravity="center"
-                    />
-
-                <!-- Type 텍스트 -->
-                <TextView
-                    android:id="@+id/block2TypeTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="무선 블루투스 스피커"
-                    android:textSize="10sp"
-                    android:gravity="center"
-                    android:layout_marginTop="1dp"
-                    android:textColor="@android:color/darker_gray" />
-            </LinearLayout>
-
-        </GridLayout>
 
         <!-- 화면 맨 아래 "직접 추가" 버튼 -->
         <Button
             android:id="@+id/addButton"
-            android:textColor="@color/white"
+            style= "@style/BackgroundButtonStyle"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:text="직접 추가"
-            android:background="@drawable/click_black_box"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="16dp" />
