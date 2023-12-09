@@ -65,7 +65,7 @@
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
                 <Spinner
-                    android:id="@+id/categorySpinner"
+                    android:id="@+id/category"
                     android:layout_width="90dp"
                     android:layout_height="30dp"
                     android:layout_centerHorizontal="true"

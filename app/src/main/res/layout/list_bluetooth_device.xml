@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/device_name"
+        android:layout_width="411dp"
+        android:layout_height="54dp"
+        android:layout_weight="100"
+        android:text="이름"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/device_address"
+        android:layout_width="412dp"
+        android:layout_height="50dp"
+        android:layout_weight="100"
+        android:text="주소"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.078" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/device_address"-->
+<!--        android:layout_width="140dp"-->
+<!--        android:layout_height="57dp"-->
+<!--        android:text="deviceAddress"-->
+<!--        tools:layout_editor_absoluteX="49dp"-->
+<!--        tools:layout_editor_absoluteY="108dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/device_name"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="55dp"-->
+<!--        android:text="deviceName"-->
+<!--        tools:layout_editor_absoluteX="214dp"-->
+<!--        tools:layout_editor_absoluteY="108dp" />-->
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:layout_marginStart="0dp"-->
+<!--    android:layout_marginEnd="0dp"-->
+<!--    tools:context=".MainActivity">-->
+
+<!--    &lt;!&ndash; prev_view_btn 이미지 버튼 &ndash;&gt;-->
+<!--    <ImageButton-->
+<!--        android:id="@+id/prevViewButton"-->
+<!--        android:contentDescription="이전으로 가기"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="75dp"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        android:background="@null"-->
+<!--        android:layout_marginStart="0dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:src="@drawable/prev_view_btn" />-->
+
+<!--    &lt;!&ndash; 상단 로고 이미지 &ndash;&gt;-->
+<!--    <ImageView-->
+<!--        android:id="@+id/logoImageView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:src="@drawable/your_logo"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginHorizontal="50dp"/>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="20dp"-->
+<!--        android:layout_marginBottom="30dp"-->
+<!--        android:layout_below="@id/logoImageView"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/paringView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_marginTop="30dp"-->
+
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:layout_below="@id/logoImageView">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/paring"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="페어링 된 디바이스"/>-->
+
+<!--                &lt;!&ndash; 굵은 구분선 &ndash;&gt;-->
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:id="@+id/view_bold1"-->
+<!--                android:layout_below="@id/paring"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:background="@android:color/black"/>-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_below="@id/view_bold1"-->
+<!--                android:layout_width="500dp"-->
+<!--                android:layout_height="250dp"-->
+<!--                android:layout_marginTop="3dp"-->
+<!--                android:background="#ececec">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="50dp" />-->
+
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="0.7dp"-->
+<!--                        android:background="@android:color/darker_gray"/>-->
+<!--                </LinearLayout>-->
+
+
+<!--            </RelativeLayout>-->
+<!--        </RelativeLayout>-->
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginBottom="10dp"-->
+<!--            android:layout_below="@id/paringView">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/connect"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="페어링 된 디바이스"/>-->
+
+<!--            &lt;!&ndash; 굵은 구분선 &ndash;&gt;-->
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:id="@+id/view_bold2"-->
+<!--                android:layout_below="@id/connect"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:background="@android:color/black"/>-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_below="@id/view_bold2"-->
+<!--                android:layout_width="500dp"-->
+<!--                android:layout_height="250dp"-->
+<!--                android:layout_marginTop="3dp"-->
+<!--                android:background="#ececec">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="50dp"/>-->
+
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="0.7dp"-->
+<!--                        android:background="@android:color/darker_gray"/>-->
+<!--                </LinearLayout>-->
+
+<!--            </RelativeLayout>-->
+<!--        </RelativeLayout>-->
+<!--        <Button-->
+<!--            android:id="@+id/addButton"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="내 기기에 추가"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:background="@drawable/click_black_box"-->
+<!--            android:layout_marginTop="20dp" />-->
+<!--    </LinearLayout>-->
+
+
+
+<!--</RelativeLayout>-->
+
+<!--    &lt;!&ndash;                    android:layout_below=""&ndash;&gt;-->
+<!--    &lt;!&ndash;                    linear 추가 시 앞에꺼 밑에 오게끔 코딩 해야함&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;<ListView android:id="@+id/deviceListView"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;android:divider="@null"&ndash;&gt;-->
+<!--&lt;!&ndash;android:dividerHeight="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;xmlns:android="http://schemas.android.com/apk/res/android" />&ndash;&gt;-->

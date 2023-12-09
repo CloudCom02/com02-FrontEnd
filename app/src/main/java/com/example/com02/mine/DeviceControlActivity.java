@@ -1,4 +1,4 @@
-package com.example.com02;
+package com.example.com02.mine;
 
 import static androidx.fragment.app.FragmentManager.TAG;
 
@@ -8,6 +8,8 @@ import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 
+import com.example.com02.R;
+import com.example.com02.mine.BluetoothLeService;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;

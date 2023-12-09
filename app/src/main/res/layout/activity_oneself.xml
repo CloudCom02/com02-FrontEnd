@@ -39,10 +39,11 @@
         android:layout_below="@id/logoImageView" >
 
         <!-- 제품 이름 -->
-        <TextView
-            android:id="@+id/productNameTextView"
+        <EditText
+            android:id="@+id/productName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="10dp"
@@ -51,7 +52,7 @@
             android:textSize="21sp"
             android:textStyle="bold" />
         <ImageButton
-            android:id="@+id/editButton"
+            android:id="@+id/editBtn"
             android:contentDescription="수정"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -59,7 +60,7 @@
             android:background="@null"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="0dp"
-            android:layout_toRightOf="@id/productNameTextView"
+            android:layout_toRightOf="@id/productName"
             android:src="@drawable/edit_btn" />
 
         <!-- 회색 구분선 -->
@@ -68,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            android:layout_below="@id/productNameTextView"
+            android:layout_below="@id/productName"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="30dp"/>
 
@@ -105,8 +106,8 @@
                     app:cardCornerRadius="4dp"
                     app:cardElevation="2dp"
                     app:cardUseCompatPadding="true">
-                    <Spinner
-                        android:id="@+id/categorySpinner"
+                    <EditText
+                        android:id="@+id/category"
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
@@ -151,8 +152,8 @@
                         app:cardElevation="2dp"
                         app:cardUseCompatPadding="true">
 
-                        <Spinner
-                            android:id="@+id/UseTimeSpinner"
+                        <EditText
+                            android:id="@+id/usingTime"
                             android:layout_width="80dp"
                             android:layout_height="30dp"
                             android:layout_centerHorizontal="true"
@@ -282,8 +283,8 @@
                     app:cardElevation="2dp"
                     app:cardUseCompatPadding="true">
 
-                    <Spinner
-                        android:id="@+id/AverageUseTimeSpinner"
+                    <EditText
+                        android:id="@+id/averageDays"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_below="@id/productImageView"
@@ -317,20 +318,21 @@
             android:layout_below="@id/propertyTable"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp" />
-
-        <!-- "내 기기에 추가" 버튼 -->
-        <Button
-            android:id="@+id/addButton"
-            style="@style/BackgroundButtonStyle"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/errorMessageTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/click_black_box"
-            android:text="추가" />
     </RelativeLayout>
+
+
+    <!-- "내 기기에 추가" 버튼 -->
+    <Button
+        android:id="@+id/registerBtn"
+        style="@style/BackgroundButtonStyle"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="99dp"
+        android:background="@drawable/click_black_box"
+        android:text="추가" />
 
 </RelativeLayout>

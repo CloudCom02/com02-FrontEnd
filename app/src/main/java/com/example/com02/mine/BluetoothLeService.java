@@ -1,6 +1,6 @@
-package com.example.com02;
+package com.example.com02.mine;
 
-import static com.example.com02.SampleGattAttributes.UUID_NOTIFICATION;
+import static com.example.com02.mine.SampleGattAttributes.UUID_NOTIFICATION;
 
 import android.annotation.SuppressLint;
 import android.app.Service;

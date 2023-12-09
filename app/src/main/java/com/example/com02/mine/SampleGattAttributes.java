@@ -1,4 +1,4 @@
-package com.example.com02;
+package com.example.com02.mine;
 import java.util.HashMap;
 import java.util.UUID;
 
