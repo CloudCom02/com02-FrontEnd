@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="0dp"
+    android:layout_marginEnd="0dp"
+    tools:context=".MainActivity">
+
+    <!-- prev_view_btn 이미지 버튼 -->
+    <ImageButton
+        android:id="@+id/prevViewButton"
+        android:contentDescription="이전으로 버튼"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/prev_view_btn" />
+
+    <!-- 상단 로고 이미지 -->
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:src="@drawable/your_logo"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="50dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/logoImageView" >
+        <!-- 검색 입력 필드 -->
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:imeOptions="actionDone"
+            android:inputType="textImeMultiLine"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:maxLines="1"
+            android:background="@drawable/click_white_box"
+            android:hint="검색어를 입력하세요"
+            android:paddingHorizontal="9dp"
+            android:textSize="6pt" />
+
+        <!-- 검색 버튼 -->
+
+        <!-- 중간 블럭 레이아웃 -->
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignEnd="@id/searchEditText"
+            android:layout_alignBottom="@id/searchEditText"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/search_btn" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/deivce_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/addButton"
+            android:layout_below="@id/searchEditText"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
+
+
+        <!-- 화면 맨 아래 "직접 추가" 버튼 -->
+        <Button
+            android:id="@+id/addButton"
+            style= "@style/BackgroundButtonStyle"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="직접 추가"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp" />
+
+    </RelativeLayout>
+</RelativeLayout>

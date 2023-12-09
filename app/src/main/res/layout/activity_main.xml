@@ -42,13 +42,13 @@
         android:text="기기 등록"
         android:textColor="@color/black"
         android:textSize="17dp"
-        app:layout_constraintBottom_toTopOf="@+id/text_mypage"
+        app:layout_constraintBottom_toTopOf="@+id/btn_mypage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_findDevice" />
 
-    <TextView
-        android:id="@+id/text_mypage"
+    <Button
+        android:id="@+id/btn_mypage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
