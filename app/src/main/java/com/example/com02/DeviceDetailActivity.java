@@ -25,7 +25,7 @@ import java.io.UnsupportedEncodingException;
 public class DeviceDetailActivity extends AppCompatActivity {
 
     TextView deviceNameTxt;
-    TextView wattTxt;
+    TextView maxOutputTxt;
     TextView capacityTxt;
     TextView usingTimeTxt;
     TextView contentsTxt;
@@ -34,6 +34,7 @@ public class DeviceDetailActivity extends AppCompatActivity {
     Button deleteBtn;
     Button editBtn;
 
+    String deviceName;
     private StringBuilder url;
     DeviceDetailDTO deviceDetailDTO;
 
@@ -43,7 +44,7 @@ public class DeviceDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_device_detail);
 
         deviceNameTxt = (TextView) findViewById(R.id.deviceName);
-        wattTxt = (TextView) findViewById(R.id.wattTxt);
+        maxOutputTxt = (TextView) findViewById(R.id.maxOutputTxt);
         capacityTxt = (TextView) findViewById(R.id.capacityTxt);
         usingTimeTxt = (TextView) findViewById(R.id.usingTimeTxt);
         contentsTxt = (TextView) findViewById(R.id.contentsTxt);
@@ -52,12 +53,15 @@ public class DeviceDetailActivity extends AppCompatActivity {
         deleteBtn = (Button) findViewById(R.id.registerBtn);
         editBtn = (Button) findViewById(R.id.editBtn);
 
-        String deviceName = getIntent().getStringExtra("deviceName");
-        deviceNameTxt.setText(deviceName);
+//        deviceName = getIntent().getStringExtra("deviceName");
+//        deviceNameTxt.setText(deviceName);
+
+        deviceName = "Boseheadset";
+
 
         url = new StringBuilder();
         RequestQueue queue = Volley.newRequestQueue(this);
-        url.append("http://10.0.2.2:8080/device/list").append("?DeviceName=").append(deviceName);
+        url.append("http://10.0.2.2:8080/device/list/").append(deviceName);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url.toString(), null, new Response.Listener<JSONObject>() {
             @Override
@@ -70,13 +74,21 @@ public class DeviceDetailActivity extends AppCompatActivity {
                     if (isSuccess) {
                         JSONObject jsonObject = response.getJSONObject("result");
 
-                        deviceDetailDTO = new DeviceDetailDTO(jsonObject.getString("devicename"),
+                        deviceDetailDTO = new DeviceDetailDTO(jsonObject.getString("deviceName"),
                                 jsonObject.getString("category"),
                                 jsonObject.getDouble("entireCapacity"),
-                                jsonObject.getDouble("maximumOutput"),
+                                jsonObject.getDouble("maximum_output"),
                                 jsonObject.getString("contents"),
                                 jsonObject.getString("usingTime"),
                                 jsonObject.getString("volt"));
+
+                        deviceNameTxt.setText(deviceDetailDTO.getDeviceName());
+                        maxOutputTxt.setText(deviceDetailDTO.getMaximum_output().toString());
+                        capacityTxt.setText(deviceDetailDTO.getEntireCapacity().toString());
+                        usingTimeTxt.setText(deviceDetailDTO.getUsingTime());
+                        contentsTxt.setText(deviceDetailDTO.getContents());
+                        voltTxt.setText(deviceDetailDTO.getVolt());
+                        categoryTxt.setText(deviceDetailDTO.getCategory());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -104,12 +116,6 @@ public class DeviceDetailActivity extends AppCompatActivity {
 
         queue.add(request);
 
-        wattTxt.setText(deviceDetailDTO.getMaximumOutput().toString());
-        capacityTxt.setText(deviceDetailDTO.getEntireCapacity().toString());
-        usingTimeTxt.setText(deviceDetailDTO.getUsingTime());
-        contentsTxt.setText(deviceDetailDTO.getContents());
-        voltTxt.setText(deviceDetailDTO.getVolt());
-        categoryTxt.setText(deviceDetailDTO.getCategory());
 
 
         // 내 기기에서 삭제

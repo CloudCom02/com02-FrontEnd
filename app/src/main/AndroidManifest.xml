@@ -35,7 +35,12 @@
 
         <activity
             android:name=".DeviceDetailActivity"
-            android:exported="false" />
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -45,25 +50,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".DeviceListActivity"
             android:exported="false" />
+
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
+
         <activity
             android:name=".mine.BluetoothMainActivity"
             android:exported="false" />
+
         <activity
             android:name=".DetailInfoActivity"
             android:exported="false" />
 
         <activity android:name=".OneselfActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
 
         <activity
