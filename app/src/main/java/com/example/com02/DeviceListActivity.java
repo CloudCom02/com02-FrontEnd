@@ -51,7 +51,7 @@ public class DeviceListActivity extends AppCompatActivity {
 
         // http를 통한 DB 연동 (capacity of user 값 읽어오기)
         RequestQueue queue = Volley.newRequestQueue(this);
-        url.append("http://10.0.2.2:8080/capacity/list").append("?userId=").append(user);
+        url.append("http://10.0.2.2:8080/capacity/list").append(user);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url.toString(), null, new Response.Listener<JSONObject>() {
             @Override

@@ -2,10 +2,12 @@ package com.example.com02;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,15 +28,17 @@ public class DeviceDetailActivity extends AppCompatActivity {
 
     TextView deviceNameTxt;
     TextView maxOutputTxt;
-    TextView capacityTxt;
+    TextView nowCapacityTxt;
     TextView usingTimeTxt;
     TextView contentsTxt;
-    TextView voltTxt;
+    TextView averageDayTxt;
     TextView categoryTxt;
+    TextView mAh;
     Button deleteBtn;
     Button editBtn;
 
     String deviceName;
+    int userId;
     private StringBuilder url;
     DeviceDetailDTO deviceDetailDTO;
 
@@ -43,52 +47,67 @@ public class DeviceDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_detail);
 
+        ImageButton backButton = findViewById(R.id.prevViewButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 이전 페이지로 이동하는 코드
+                Intent intent = new Intent(DeviceDetailActivity.this, DeviceListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         deviceNameTxt = (TextView) findViewById(R.id.deviceName);
+        categoryTxt = (TextView) findViewById(R.id.categoryTxt);
         maxOutputTxt = (TextView) findViewById(R.id.maxOutputTxt);
-        capacityTxt = (TextView) findViewById(R.id.capacityTxt);
+        nowCapacityTxt = (TextView) findViewById(R.id.nowCapacityTxt);
         usingTimeTxt = (TextView) findViewById(R.id.usingTimeTxt);
         contentsTxt = (TextView) findViewById(R.id.contentsTxt);
-        voltTxt = (TextView) findViewById(R.id.voltTxt);
-        categoryTxt = (TextView) findViewById(R.id.categoryTxt);
+        averageDayTxt = (TextView) findViewById(R.id.averageDaysTxt);
+        mAh = (TextView) findViewById(R.id.mAhTxt);
         deleteBtn = (Button) findViewById(R.id.registerBtn);
         editBtn = (Button) findViewById(R.id.editBtn);
 
 //        deviceName = getIntent().getStringExtra("deviceName");
 //        deviceNameTxt.setText(deviceName);
 
-        deviceName = "Boseheadset";
-
+        deviceName = "BoseHeadphone";
 
         url = new StringBuilder();
         RequestQueue queue = Volley.newRequestQueue(this);
-        url.append("http://10.0.2.2:8080/device/list/").append(deviceName);
+        url.append("http://10.0.2.2:8080/capacity/deviceOfList/").append(deviceName);
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url.toString(), null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url.toString(), null,
+                new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.d("response", response.toString());
                 Log.d("success", response.toString());
 
                 try {
                     boolean isSuccess = response.getBoolean("isSuccess");
-
                     if (isSuccess) {
                         JSONObject jsonObject = response.getJSONObject("result");
 
                         deviceDetailDTO = new DeviceDetailDTO(jsonObject.getString("deviceName"),
                                 jsonObject.getString("category"),
-                                jsonObject.getDouble("entireCapacity"),
+                                jsonObject.getDouble("mah"),
                                 jsonObject.getDouble("maximum_output"),
                                 jsonObject.getString("contents"),
                                 jsonObject.getString("usingTime"),
-                                jsonObject.getString("volt"));
+                                jsonObject.getString("nowCapacity"),
+                                jsonObject.getString("averageDays"));
 
                         deviceNameTxt.setText(deviceDetailDTO.getDeviceName());
-                        maxOutputTxt.setText(deviceDetailDTO.getMaximum_output().toString());
-                        capacityTxt.setText(deviceDetailDTO.getEntireCapacity().toString());
-                        usingTimeTxt.setText(deviceDetailDTO.getUsingTime());
-                        contentsTxt.setText(deviceDetailDTO.getContents());
-                        voltTxt.setText(deviceDetailDTO.getVolt());
                         categoryTxt.setText(deviceDetailDTO.getCategory());
+                        maxOutputTxt.setText(deviceDetailDTO.getMaximum_output().toString());
+                        nowCapacityTxt.setText(deviceDetailDTO.getNowCapacity());
+                        contentsTxt.setText(deviceDetailDTO.getContents());
+                        usingTimeTxt.setText(deviceDetailDTO.getUsingTime());
+                        averageDayTxt.setText(deviceDetailDTO.getAverageDays());
+                        mAh.setText(deviceDetailDTO.getmAh().toString());
+
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -123,7 +142,7 @@ public class DeviceDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 url = new StringBuilder();
-                url.append("http://10.0.2.2:8080/capacity/delete");
+                url.append("http://10.0.2.2:8080/device/delete");
 
                 // json request Body 생성
                 JSONObject jsonBody = new JSONObject();
@@ -133,7 +152,7 @@ public class DeviceDetailActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url.toString(), jsonBody,
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url.toString(), jsonBody,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -161,6 +180,10 @@ public class DeviceDetailActivity extends AppCompatActivity {
                     }
                 });
                 queue.add(request);
+
+                //device 리스트 activity로 전환
+//                Intent intent = new Intent(DeviceDetailActivity.this, DeviceListActivity.class);
+//                startActivity(intent);
             }
         });
     }
