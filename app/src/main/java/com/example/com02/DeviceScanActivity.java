@@ -1,4 +1,4 @@
-package com.example.com02.mine;
+package com.example.com02;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -12,8 +12,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,8 +19,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 //import static androidx.fragment.app.FragmentManager.TAG;
-
-import com.example.com02.R;
 
 import java.util.ArrayList;
 

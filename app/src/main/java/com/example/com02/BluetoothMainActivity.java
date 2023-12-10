@@ -1,4 +1,4 @@
-package com.example.com02.mine;
+package com.example.com02;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,8 +33,6 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-
-import com.example.com02.R;
 
 public class BluetoothMainActivity extends AppCompatActivity {
     TextView receiveData;

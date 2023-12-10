@@ -35,11 +35,7 @@
 
         <activity
             android:name=".DeviceDetailActivity"
-            android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+            android:exported="true"/>
 
         <activity
             android:name=".MainActivity"
@@ -51,17 +47,15 @@
             android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+        </intent-filter></activity>
 
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
 
         <activity
-            android:name=".mine.BluetoothMainActivity"
+            android:name=".BluetoothMainActivity"
             android:exported="false" />
 
         <activity
@@ -85,7 +79,7 @@
         <!-- android:name=".DeviceControlActivity" -->
         <!-- android:theme="@style/Theme.Com02.NoActionBar" /> -->
         <activity
-            android:name=".mine.DeviceScanActivity"
+            android:name=".DeviceScanActivity"
             android:enabled="true"
             android:exported="true" />
     </application>

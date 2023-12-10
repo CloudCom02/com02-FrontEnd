@@ -318,21 +318,24 @@
             android:layout_below="@id/propertyTable"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp" />
+
+        <Button
+            android:id="@+id/registerBtn"
+            style="@style/BackgroundButtonStyle"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="425dp"
+            android:layout_marginEnd="62dp"
+            android:layout_marginBottom="33dp"
+            android:background="@drawable/click_black_box"
+            android:text="추가" />
     </RelativeLayout>
 
 
     <!-- "내 기기에 추가" 버튼 -->
-    <Button
-        android:id="@+id/registerBtn"
-        style="@style/BackgroundButtonStyle"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="99dp"
-        android:background="@drawable/click_black_box"
-        android:text="추가" />
 
 </RelativeLayout>

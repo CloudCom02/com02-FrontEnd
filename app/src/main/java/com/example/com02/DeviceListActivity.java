@@ -20,7 +20,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.com02.mine.BluetoothMainActivity;
 import com.example.dto.DeviceAdapter;
 import com.example.dto.DeviceDTO;
 
@@ -36,13 +35,14 @@ public class DeviceListActivity extends AppCompatActivity {
 
     ImageButton bluetoothBtn;
     private StringBuilder url;
-
+    private List<DeviceDTO> deviceDTOList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
+        ListView listView = findViewById(R.id.tableList);
 
         //어디에나 있는 prev 버튼
         ImageButton backButton = findViewById(R.id.prevViewButton);
@@ -55,7 +55,7 @@ public class DeviceListActivity extends AppCompatActivity {
             }
         });
 
-        List<DeviceDTO> deviceDTOList = new ArrayList<>();
+        deviceDTOList = new ArrayList<>();
 
         url = new StringBuilder();
         int userId = 2;       //수정 필요
@@ -75,7 +75,7 @@ public class DeviceListActivity extends AppCompatActivity {
                     if (isSuccess) {
                         JSONArray jsonArray = response.getJSONArray("result");
 
-                        DeviceDTO deviceDTO = null;
+                        DeviceDTO deviceDTO;
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -84,9 +84,14 @@ public class DeviceListActivity extends AppCompatActivity {
                                     jsonObject.getString("category"),
                                     jsonObject.getDouble("batteryLevel"));
 
-                            //deviceDTOList.set(i, deviceDTO);
                             deviceDTOList.add(deviceDTO);
+
+                            Log.d("DTO 값: ", deviceDTOList.toString());
                         }
+                        Log.d("Status", "deviceAdapter 설정 직전");
+                        DeviceAdapter adapter = new DeviceAdapter(DeviceListActivity.this, deviceDTOList);
+                        listView.setAdapter(adapter);
+                        Log.d("Status", "deviceAdapter 설정 직후");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -114,7 +119,7 @@ public class DeviceListActivity extends AppCompatActivity {
 
         queue.add(request);
 
-        ListView listView = findViewById(R.id.tableList);
+        Log.d("DTO 값: ", deviceDTOList.toString());
         DeviceAdapter adapter = new DeviceAdapter(this, deviceDTOList);
         listView.setAdapter(adapter);
 

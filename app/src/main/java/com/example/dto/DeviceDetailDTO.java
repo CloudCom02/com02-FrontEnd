@@ -13,9 +13,10 @@ public class DeviceDetailDTO {
     private String usingTime;     //전체 사용 가능 시간 (원래 type: Time)
     private String nowCapacity;
     private String averageDays;
+    private Long capacityOfUserId;
 
     public DeviceDetailDTO(String deviceName, String category, Double mAh, Double maximum_output,
-                           String contents, String usingTime, String nowCapacity, String averageDays) {
+                           String contents, String usingTime, String nowCapacity, String averageDays,Long capacityOfUserId) {
         this.deviceName = deviceName;
         this.category = category;
         this.mAh = mAh;
@@ -24,6 +25,7 @@ public class DeviceDetailDTO {
         this.usingTime = usingTime;
         this.nowCapacity = nowCapacity;
         this.averageDays = averageDays;
+        this.capacityOfUserId = capacityOfUserId;
     }
 
     public String getDeviceName() {
@@ -48,5 +50,6 @@ public class DeviceDetailDTO {
     public String getAverageDays() {
         return averageDays;
     }
+    public Long getCapacityOfUserId() { return capacityOfUserId;}
 
 }
