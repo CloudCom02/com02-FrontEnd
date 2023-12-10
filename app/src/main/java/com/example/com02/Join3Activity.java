@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,49 +28,97 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class Join2Activity extends AppCompatActivity {
-    private EditText editText_authcode;
+public class Join3Activity extends AppCompatActivity {
+
+    private EditText editText_password1;
+    private EditText editText_password2;
     private TextView text_message;
-    private Button btn_check;
     private Button btn_next;
     private ImageView img_privousArraw;
     private StringBuilder url;
     private SharedPreferences preferences;
     RequestQueue queue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join2);
+        setContentView(R.layout.activity_join3);
 
-        editText_authcode = findViewById(R.id.editText_authcode);
-        btn_check = findViewById(R.id.btn_check);
+        editText_password1 = findViewById(R.id.editText_password1);
+        editText_password2 = findViewById(R.id.editText_password2);
         text_message = findViewById(R.id.text_message);
         text_message.setVisibility(View.VISIBLE);
         text_message.setTextColor(getResources().getColor(R.color.red));
-        text_message.setText("일치하지 않는 인증코드입니다");
+        text_message.setText("비밀번호가 일치하지 않습니다");
         btn_next = findViewById(R.id.btn_next);
         btn_next.setClickable(false);
         img_privousArraw = findViewById(R.id.img_privousArraw);
 
         queue = Volley.newRequestQueue(this);
 
-        // 인증코드 확인 버튼
-        btn_check.setOnClickListener(new View.OnClickListener() {
+        editText_password1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!editText_password1.getText().toString().equals("") && editText_password1.getText().toString().equals(editText_password2.getText().toString())) {
+                    text_message.setTextColor(getResources().getColor(R.color.green));
+                    text_message.setText("비밀번호가 일치합니다");
+                    btn_next.setClickable(true);
+                } else {
+                    text_message.setTextColor(getResources().getColor(R.color.red));
+                    text_message.setText("비밀번호가 일치하지 않습니다");
+                    btn_next.setClickable(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        editText_password2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!editText_password1.getText().toString().equals("") && editText_password1.getText().toString().equals(editText_password2.getText().toString())) {
+                    text_message.setTextColor(getResources().getColor(R.color.green));
+                    text_message.setText("비밀번호가 일치합니다");
+                    btn_next.setClickable(true);
+                } else {
+                    text_message.setTextColor(getResources().getColor(R.color.red));
+                    text_message.setText("비밀번호가 일치하지 않습니다");
+                    btn_next.setClickable(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 url = new StringBuilder();
                 JSONObject jsonRequest = new JSONObject();
 
                 preferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
-                String email = preferences.getString("email", "");
+                String email = preferences.getString("email", null);
                 try {
-//                    url.append("http://34.22.110.168:8001/user/emails/verifications");
-                    url.append("http://34.64.190.44:8192/user/emails/verifications");
-
-                    String correctCode = preferences.getString("correctCode", "");
-                    jsonRequest.put("correctCode", correctCode);
-                    jsonRequest.put("inputCode", editText_authcode.getText().toString());
-                    Log.d("asdf", "Join2Activity : 입력한 인증코드 - " + editText_authcode.getText().toString());
+//                    url.append("http://34.22.110.168:8001/user/join");
+                    url.append("http://34.64.190.44:8192/user/join");
+                    jsonRequest.put("email", email);
+                    jsonRequest.put("password", editText_password2.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -76,30 +126,23 @@ public class Join2Activity extends AppCompatActivity {
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url.toString(), jsonRequest, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("asdf", "Join2Activity : 응답 - " + response.toString());
+                        Log.d("asdf", "Join3Activity : 응답 - " + response.toString());
 
                         try {
                             // 서버 응답에서 필요한 정보 추출
                             boolean isSuccess = response.getBoolean("isSuccess");
 
                             if (isSuccess) {
-                                JSONObject result = response.getJSONObject("result");
-                                boolean isCorrected = result.getBoolean("isCorrected");
-
-                                // 인증코드 맞는 경우
-                                if (isCorrected) {
-                                    text_message.setTextColor(getResources().getColor(R.color.green));
-                                    text_message.setText("인증이 완료되었습니다");
-                                    btn_next.setClickable(true);
-                                }
+                                Intent intent = new Intent(getApplicationContext(), Join4Activity.class);
+                                startActivity(intent);
                             } else {
                                 btn_next.setClickable(false);
-                                Log.d("asdf", "인증코드 맞지 않음");
-                                Toast.makeText(Join2Activity.this, "인증코드가 맞지 않습니다", Toast.LENGTH_SHORT).show();
+                                Log.d("asdf", "회원가입 실패");
+                                Toast.makeText(Join3Activity.this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(Join2Activity.this, "JSON 파싱 오류", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Join3Activity.this, "JSON 파싱 오류입니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -125,14 +168,6 @@ public class Join2Activity extends AppCompatActivity {
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 queue.add(request);
-            }
-        });
-
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Join3Activity.class);
-                startActivity(intent);
             }
         });
 

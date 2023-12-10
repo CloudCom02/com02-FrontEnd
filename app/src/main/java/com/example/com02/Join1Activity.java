@@ -60,7 +60,7 @@ public class Join1Activity extends AppCompatActivity {
                 url = new StringBuilder();
 
                 try {
-                    url.append("http://10.0.2.2:8080/user/check-email").append("?email=").append(editText_email.getText().toString());
+                    url.append("http://34.64.190.44:8192/user/check-email").append("?email=").append(editText_email.getText().toString());
                     Log.d("asdf", "Join1Activity : 입력한 이메일 - " + editText_email.getText().toString());
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -135,7 +135,8 @@ public class Join1Activity extends AppCompatActivity {
                 startActivity(intent);
 
                 url = new StringBuilder();
-                url.append("http://10.0.2.2:8080/user/emails/verification-requests");
+//                url.append("http://34.22.110.168:8001/user/emails/verification-requests");
+                url.append("http://34.64.190.44:8192/user/emails/verification-requests");
 
                 JSONObject jsonRequest = new JSONObject();
                 try {
@@ -148,7 +149,6 @@ public class Join1Activity extends AppCompatActivity {
                 //Editor를 preferences에 쓰겠다고 연결
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("email", editText_email.getText().toString());
-                //항상 commit & apply 를 해주어야 저장이 된다.
                 editor.commit();
 
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url.toString(), jsonRequest, new Response.Listener<JSONObject>() {
@@ -160,7 +160,12 @@ public class Join1Activity extends AppCompatActivity {
                             // 서버 응답에서 필요한 정보 추출
                             boolean isSuccess = response.getBoolean("isSuccess");
 
-                            if (!isSuccess) {
+                            if (isSuccess) {
+                                JSONObject result = response.getJSONObject("result");
+                                String correctCode = result.getString("code");
+                                editor.putString("correctCode", correctCode);
+                                editor.commit();
+                            } else {
                                 Toast.makeText(Join1Activity.this, "메일 전송 오류", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
@@ -186,6 +191,9 @@ public class Join1Activity extends AppCompatActivity {
                     }
                 });
 
+                //항상 commit & apply 를 해주어야 저장이 된다.
+                editor.commit();
+
                 request.setShouldCache(false); //이전 결과가 있어도 새로 요청하여 응답을 보여준다.
                 request.setRetryPolicy(new DefaultRetryPolicy(100000000,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -197,7 +205,7 @@ public class Join1Activity extends AppCompatActivity {
         img_privousArraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });

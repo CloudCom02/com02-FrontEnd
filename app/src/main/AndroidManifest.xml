@@ -32,16 +32,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Join4Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Join3Activity"
+            android:exported="false" />
+        <activity
             android:name=".Join2Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Join1Activity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.com02.MyPageActivity"
             android:exported="true" />
         <activity
-            android:name=".JoinActivity"
+            android:name=".Join1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".MyPageActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
@@ -51,18 +54,13 @@
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="true" />
         <activity
             android:name=".BluetoothMainActivity"
             android:exported="true" />

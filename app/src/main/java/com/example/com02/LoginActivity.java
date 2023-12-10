@@ -114,5 +114,13 @@ public class LoginActivity extends AppCompatActivity {
                 queue.add(request);
             }
         });
+
+        join.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Join1Activity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

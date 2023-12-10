@@ -36,22 +36,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="510dp"
-        android:text="해당 메일 주소로 받은\n6자리 인증코드를 입력해주세요"
+        android:text="비밀번호를 입력해주세요"
         android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintHorizontal_bias="0.144"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_title" />
 
     <EditText
-        android:id="@+id/editText_authcode"
+        android:id="@+id/editText_password1"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:background="@drawable/input_box"
         android:ems="10"
-        android:hint="인증 코드"
+        android:hint="비밀번호"
         android:inputType="text"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,14 +61,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.271" />
 
-    <Button
-        android:id="@+id/btn_check"
+    <EditText
+        android:id="@+id/editText_password2"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:background="@drawable/click_black_box"
-        android:text="인증코드 확인"
-        android:textColor="@color/white"
-        android:textSize="17sp"
+        android:background="@drawable/input_box"
+        android:ems="10"
+        android:hint="비밀번호 확인"
+        android:inputType="text"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
@@ -78,18 +79,19 @@
 
     <TextView
         android:id="@+id/text_message"
-        android:layout_width="155dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="인증이 완료되었습니다"
+        android:text="비밀번호가 일치하지 않습니다"
         android:textAlignment="center"
-        android:textColor="@color/green"
+        android:textColor="@color/red"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.461" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_password2"
+        app:layout_constraintVertical_bias="0.104" />
 
     <Button
         android:id="@+id/btn_next"
@@ -100,7 +102,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/click_black_box"
-        android:text="다음"
+        android:text="완료"
         android:textColor="@color/white"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
