@@ -107,7 +107,7 @@
                     app:cardElevation="2dp"
                     app:cardUseCompatPadding="true">
                     <EditText
-                        android:id="@+id/category"
+                        android:id="@+id/categoryTextView"
                         android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"

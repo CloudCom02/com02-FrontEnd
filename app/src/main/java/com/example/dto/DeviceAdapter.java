@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.com02.R;
-import com.example.dto.DeviceDTO;
 
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class DeviceAdapter extends BaseAdapter {
         ViewHolder holder;
 
         if (view == null) {
-            view = inflater.inflate(R.layout.list_item_device, null);
+            view = inflater.inflate(R.layout.device_list_item_adpater, parent);
             holder = new ViewHolder();
 
             holder.deviceNameTextView = view.findViewById(R.id.deviceNameTextView);
@@ -59,8 +58,8 @@ public class DeviceAdapter extends BaseAdapter {
 
         holder.deviceNameTextView.setText(device.getDeviceName());
         holder.categoryTextView.setText(device.getCategory());
-        holder.batteryLevelTextView.setText("Battery Level: " + device.getBatteryLevel());
-        holder.isNeedChargeTextView.setText("Needs Charge: " + device.isNeedCharge());
+        holder.batteryLevelTextView.setText(device.getBatteryLevel().toString());
+        holder.isNeedChargeTextView.setText("Needs Charge");
 
         return view;
     }

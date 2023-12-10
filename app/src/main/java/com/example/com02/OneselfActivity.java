@@ -38,7 +38,7 @@ public class OneselfActivity extends AppCompatActivity {
         setContentView(R.layout.activity_oneself);
 
         deviceName = (EditText) findViewById(R.id.productName);
-        category = (EditText) findViewById(R.id.category);
+        category = (EditText) findViewById(R.id.categoryTextView);
         usingTime = (EditText) findViewById(R.id.usingTime);
         averageDays = (EditText) findViewById(R.id.averageDays);
         addDeviceBtn = (Button) findViewById(R.id.registerBtn);

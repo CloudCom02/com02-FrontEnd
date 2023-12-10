@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- 속성을 표시하는 테이블 -->
+    <TableLayout
+        android:id="@+id/columnNamesTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/categoryTextView"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingVertical="8dp"
+                android:text="분류" />
+
+            <TextView
+                android:id="@+id/deviceNameTextView"
+                android:layout_width="79dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:paddingVertical="8dp"
+                android:text="모델명" />
+
+            <TextView
+                android:id="@+id/batteryLevelTextView"
+                android:layout_width="93dp"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:paddingVertical="8dp"
+                android:text="연결타입/잔량" />
+
+            <TextView
+                android:id="@+id/isNeedChargeTextView"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:paddingVertical="8dp"
+                android:text="충전 상태" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

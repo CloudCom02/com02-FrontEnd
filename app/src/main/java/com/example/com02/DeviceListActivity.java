@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceListActivity extends AppCompatActivity {
@@ -42,16 +43,26 @@ public class DeviceListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
-        bluetoothBtn = findViewById(R.id.bluetoothButton);
 
-        List<DeviceDTO> deviceDTOList = null;
+        //어디에나 있는 prev 버튼
+        ImageButton backButton = findViewById(R.id.prevViewButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 이전 페이지로 이동하는 코드
+                Intent intent = new Intent(DeviceListActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        List<DeviceDTO> deviceDTOList = new ArrayList<>();
 
         url = new StringBuilder();
-        int user = 2;       //수정 필요
+        int userId = 2;       //수정 필요
 
         // http를 통한 DB 연동 (capacity of user 값 읽어오기)
         RequestQueue queue = Volley.newRequestQueue(this);
-        url.append("http://10.0.2.2:8080/capacity/list").append(user);
+        url.append("http://10.0.2.2:8080/capacity/list/").append(Long.valueOf(userId));
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url.toString(), null, new Response.Listener<JSONObject>() {
             @Override
@@ -69,12 +80,12 @@ public class DeviceListActivity extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                            deviceDTO = new DeviceDTO(jsonObject.getString("devicename"),
+                            deviceDTO = new DeviceDTO(jsonObject.getString("deviceName"),
                                     jsonObject.getString("category"),
-                                    jsonObject.getLong("batteryLevel"),
-                                    jsonObject.getBoolean("isNeedCharge"));
+                                    jsonObject.getDouble("batteryLevel"));
 
-                            deviceDTOList.set(i, deviceDTO);
+                            //deviceDTOList.set(i, deviceDTO);
+                            deviceDTOList.add(deviceDTO);
                         }
                     }
                 } catch (JSONException e) {
@@ -103,7 +114,7 @@ public class DeviceListActivity extends AppCompatActivity {
 
         queue.add(request);
 
-        ListView listView = findViewById(R.id.listView);
+        ListView listView = findViewById(R.id.tableList);
         DeviceAdapter adapter = new DeviceAdapter(this, deviceDTOList);
         listView.setAdapter(adapter);
 
@@ -119,7 +130,9 @@ public class DeviceListActivity extends AppCompatActivity {
             }
         });
 
+
         // 블루투스 연결 화면 전환
+        bluetoothBtn = findViewById(R.id.bluetoothButton);
         bluetoothBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,8 +140,6 @@ public class DeviceListActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     //bluetooth main activity로 연결하는 창
     private void showPopup() {

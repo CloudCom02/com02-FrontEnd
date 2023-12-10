@@ -3,14 +3,12 @@ package com.example.dto;
 public class DeviceDTO {
     private String deviceName;
     private String category;
-    private long batteryLevel;
-    private boolean isNeedCharge;
+    private Double batteryLevel;
 
-    public DeviceDTO(String deviceName, String category, long batteryLevel, boolean isNeedCharge) {
+    public DeviceDTO(String deviceName, String category, Double batteryLevel) {
         this.deviceName = deviceName;
         this.category = category;
         this.batteryLevel = batteryLevel;
-        this.isNeedCharge = isNeedCharge;
     }
 
     public String getDeviceName() {
@@ -21,11 +19,7 @@ public class DeviceDTO {
         return category;
     }
 
-    public long getBatteryLevel() {
+    public Double getBatteryLevel() {
         return batteryLevel;
-    }
-
-    public boolean isNeedCharge() {
-        return isNeedCharge;
     }
 }
