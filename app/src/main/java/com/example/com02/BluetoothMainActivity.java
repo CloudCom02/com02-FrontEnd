@@ -113,9 +113,6 @@ public class BluetoothMainActivity extends AppCompatActivity {
         };
     }
 
-    // optionsMenu 부분 생
-
-
     // Bluetooth On & Off
     @SuppressLint("MissingPermission")
     void bluetoothOnOff() {
@@ -132,12 +129,6 @@ public class BluetoothMainActivity extends AppCompatActivity {
                 startActivityForResult(intentBluetoothEnable, BT_REQUEST_ENABLE);
                 Toast.makeText(getApplicationContext(), "블루투스 활성화", Toast.LENGTH_LONG).show();
                 btnBluetoothOnOff.setText("블루투스 OFF");
-
-                // Device Scan Start
-
-
-
-
             }
         }
     }
@@ -283,6 +274,7 @@ public class BluetoothMainActivity extends AppCompatActivity {
 //    }
 
 
+        // 리스트 뷰 홀더 어댑터
         @Override
         @SuppressLint("MissingPermission")
         public View getView(int i, View view, ViewGroup viewGroup) {
@@ -291,7 +283,7 @@ public class BluetoothMainActivity extends AppCompatActivity {
             if (view == null) {
                 view = mInflator.inflate(R.layout.list_bluetooth_device, null);
                 viewHolder = new BluetoothMainActivity.ViewHolder();
-                viewHolder.deviceAddress = (TextView) view.findViewById(R.id.device_address);
+                viewHolder.status = (TextView) view.findViewById(R.id.device_status);
                 viewHolder.deviceName = (TextView) view.findViewById(R.id.device_name);
                 view.setTag(viewHolder);
             } else {
@@ -303,7 +295,7 @@ public class BluetoothMainActivity extends AppCompatActivity {
                 viewHolder.deviceName.setText(deviceName);
             else
                 viewHolder.deviceName.setText(R.string.unknown_device);
-            viewHolder.deviceAddress.setText(device.getAddress());
+            viewHolder.deviceName.setText(device.getAddress());
             return view;
         }
     }
@@ -363,26 +355,26 @@ public class BluetoothMainActivity extends AppCompatActivity {
             }
         }
     }
-//
-//    @Override
-//    @SuppressLint("MissingPermission")
-//    protected void onResume() {
-//        super.onResume();
-//        // Ensures Bluetooth is enabled on the device.  If Bluetooth is not currently enabled,
-//        // fire an intent to display a dialog asking the user to grant permission to enable it.
-//        if (!mBluetoothAdapter.isEnabled()) {
-//            if (!mBluetoothAdapter.isEnabled()) {
-//                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-//                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-//            }
-//        }
-//
+
+    @Override
+    @SuppressLint("MissingPermission")
+    protected void onResume() {
+        super.onResume();
+        // Ensures Bluetooth is enabled on the device.  If Bluetooth is not currently enabled,
+        // fire an intent to display a dialog asking the user to grant permission to enable it.
+        if (!mBluetoothAdapter.isEnabled()) {
+            if (!mBluetoothAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
+        }
+
 //        // Initializes list view adapter.
 //        mLeDeviceListAdapter = new MainActivity.LeDeviceListAdapter();
 //        listSearch.setAdapter(mLeDeviceListAdapter);
 //        //ListActivity 클래스인데 조취를 어케 취하지
 //        scanLeDevice(true);
-//    }
+    }
 
     @Override
     protected void onPause() {
@@ -409,6 +401,6 @@ public class BluetoothMainActivity extends AppCompatActivity {
             };
     static class ViewHolder {
         TextView deviceName;
-        TextView deviceAddress;
+        TextView status;
     }
 }

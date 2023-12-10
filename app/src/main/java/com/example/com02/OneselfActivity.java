@@ -43,7 +43,7 @@ public class OneselfActivity extends AppCompatActivity {
         averageDays = (EditText) findViewById(R.id.averageDays);
         addDeviceBtn = (Button) findViewById(R.id.registerBtn);
 
-        String userId = "2";
+        int userId = 2;     // userId 변수로 수정 필요
 
         //어디에나 있는 prev 버튼
         ImageButton backButton = findViewById(R.id.prevViewButton);
@@ -67,7 +67,7 @@ public class OneselfActivity extends AppCompatActivity {
 
                 JSONObject jsonBody = new JSONObject();
                 try {
-                    jsonBody.put("userId", Long.valueOf(userId.toString()));
+                    jsonBody.put("userId", Long.valueOf(userId));
                     jsonBody.put("deviceName", deviceName.getText().toString());
                     jsonBody.put("category", category.getText().toString());
                     jsonBody.put("averageDays", Long.valueOf(averageDays.getText().toString()));

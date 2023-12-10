@@ -70,9 +70,8 @@ public class DeviceDetailActivity extends AppCompatActivity {
         editBtn = (Button) findViewById(R.id.editBtn);
         capacityOfUserId = (TextView) findViewById(R.id.capacityId);
 
-        deviceName = "BoseHeadphone";
-//        deviceName = getIntent().getStringExtra("deviceName");
-//        deviceNameTxt.setText(deviceName);
+        deviceName = getIntent().getStringExtra("deviceName");
+        deviceNameEdit.setText(deviceName);
 
         url = new StringBuilder();
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -91,7 +90,7 @@ public class DeviceDetailActivity extends AppCompatActivity {
 
                                 deviceDetailDTO = new DeviceDetailDTO(jsonObject.getString("deviceName"),
                                         jsonObject.getString("category"),
-                                        jsonObject.getDouble("mah"),
+                                        jsonObject.getInt(  "mAh"),
                                         jsonObject.getDouble("maximum_output"),
                                         jsonObject.getString("contents"),
                                         jsonObject.getString("usingTime"),
@@ -187,6 +186,12 @@ public class DeviceDetailActivity extends AppCompatActivity {
                     }
                 });
                 queue.add(request);
+
+                Toast.makeText(getApplicationContext(), "디바이스 수정 완료", Toast.LENGTH_LONG).show();
+
+                //device 리스트 activity로 전환
+                Intent intent = new Intent(DeviceDetailActivity.this, DeviceListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -235,6 +240,8 @@ public class DeviceDetailActivity extends AppCompatActivity {
                     }
                 });
                 queue.add(request);
+
+                Toast.makeText(getApplicationContext(), "디바이스 삭제 완료", Toast.LENGTH_LONG).show();
 
                 //device 리스트 activity로 전환
                 Intent intent = new Intent(DeviceDetailActivity.this, DeviceListActivity.class);

@@ -176,7 +176,7 @@ public class DeviceScanActivity extends ListActivity {
             if (view == null) {
                 view = mInflator.inflate(R.layout.list_bluetooth_device, null);
                 viewHolder = new ViewHolder();
-                viewHolder.deviceAddress = (TextView) view.findViewById(R.id.device_address);
+                viewHolder.deviceAddress = (TextView) view.findViewById(R.id.device_status);
                 viewHolder.deviceName = (TextView) view.findViewById(R.id.device_name);
                 view.setTag(viewHolder);
             } else {

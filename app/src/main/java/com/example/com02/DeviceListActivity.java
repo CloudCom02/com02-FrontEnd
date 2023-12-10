@@ -57,10 +57,9 @@ public class DeviceListActivity extends AppCompatActivity {
 
         deviceDTOList = new ArrayList<>();
 
-        url = new StringBuilder();
-        int userId = 2;       //수정 필요
+        int userId = 2;       // userId 변수로 수정 필요
 
-        // http를 통한 DB 연동 (capacity of user 값 읽어오기)
+        url = new StringBuilder();
         RequestQueue queue = Volley.newRequestQueue(this);
         url.append("http://10.0.2.2:8080/capacity/list/").append(Long.valueOf(userId));
 
@@ -88,10 +87,8 @@ public class DeviceListActivity extends AppCompatActivity {
 
                             Log.d("DTO 값: ", deviceDTOList.toString());
                         }
-                        Log.d("Status", "deviceAdapter 설정 직전");
                         DeviceAdapter adapter = new DeviceAdapter(DeviceListActivity.this, deviceDTOList);
                         listView.setAdapter(adapter);
-                        Log.d("Status", "deviceAdapter 설정 직후");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
