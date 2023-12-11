@@ -70,7 +70,7 @@
             android:id="@+id/deivce_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/addButton"
+            android:layout_above="@id/registerBtn"
             android:layout_below="@id/searchEditText"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -82,7 +82,7 @@
 
         <!-- 화면 맨 아래 "직접 추가" 버튼 -->
         <Button
-            android:id="@+id/addButton"
+            android:id="@+id/registerBtn"
             style= "@style/BackgroundButtonStyle"
             android:layout_width="150dp"
             android:layout_height="50dp"

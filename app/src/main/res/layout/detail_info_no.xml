@@ -48,7 +48,7 @@
 
         <!-- 제품 이름 -->
         <TextView
-            android:id="@+id/productNameTextView"
+            android:id="@+id/productName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product Name"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            android:layout_below="@id/productNameTextView"
+            android:layout_below="@id/productName"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="30dp"/>
 
@@ -242,7 +242,7 @@
 
         <!-- "내 기기에 추가" 버튼 -->
         <Button
-            android:id="@+id/addButton"
+            android:id="@+id/registerBtn"
             style="@style/BackgroundButtonStyle"
             android:layout_width="150dp"
             android:layout_height="50dp"
