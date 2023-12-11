@@ -61,7 +61,7 @@ public class DeviceListActivity extends AppCompatActivity {
 
         url = new StringBuilder();
         RequestQueue queue = Volley.newRequestQueue(this);
-        url.append("http://10.0.2.2:8080/capacity/list/").append(Long.valueOf(userId));
+        url.append("http://test.com02cloud.kro.kr/capacity/list/").append(Long.valueOf(userId));
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url.toString(), null, new Response.Listener<JSONObject>() {
             @Override

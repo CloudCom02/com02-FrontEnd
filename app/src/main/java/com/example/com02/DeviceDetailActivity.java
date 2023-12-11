@@ -75,7 +75,7 @@ public class DeviceDetailActivity extends AppCompatActivity {
 
         url = new StringBuilder();
         RequestQueue queue = Volley.newRequestQueue(this);
-        url.append("http://10.0.2.2:8080/capacity/deviceOfList/").append(deviceName);
+        url.append("http://test.com02cloud.kro.kr/capacity/deviceOfList/").append(deviceName);
 
         request = new JsonObjectRequest(Request.Method.GET, url.toString(), null,
                 new Response.Listener<JSONObject>() {
@@ -141,7 +141,7 @@ public class DeviceDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 url = new StringBuilder();
-                url.append("http://10.0.2.2:8080/capacity/update");
+                url.append("http://test.com02cloud.kro.kr/capacity/update");
 
                 Long capacityId = Long.valueOf(capacityOfUserId.getText().toString());
 
@@ -200,7 +200,7 @@ public class DeviceDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 url = new StringBuilder();
-                url.append("http://10.0.2.2:8080/capacity/delete");
+                url.append("http://test.com02cloud.kro.kr/capacity/delete");
 
                 Long capacityId = Long.valueOf(capacityOfUserId.getText().toString());
 

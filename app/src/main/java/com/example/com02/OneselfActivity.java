@@ -63,7 +63,7 @@ public class OneselfActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                url.append("http://10.0.2.2:8080/capacity/add");
+                url.append("http://test.com02cloud.kro.kr/capacity/add");
 
                 JSONObject jsonBody = new JSONObject();
                 try {
