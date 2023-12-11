@@ -21,6 +21,8 @@
     <uses-permission
         android:name="android.permission.BLUETOOTH_PRIVILEGED"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -36,7 +38,30 @@
         <activity
             android:name=".DeviceDetailActivity"
             android:exported="true"/>
-
+        <activity
+            android:name=".Pw3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Pw2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Pw1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Join4Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Join3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Join2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".Join1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".MyPageActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -44,7 +69,6 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter></activity>
-
         <activity
             android:name=".DeviceListActivity"
             android:exported="false"/>
@@ -64,19 +88,10 @@
         <activity android:name=".OneselfActivity"
             android:exported="false">
         </activity>
-
         <activity
             android:name=".SearchActivity"
             android:exported="false" />
         <activity android:name=".JoinActivity" />
-
-        <!-- <service -->
-        <!-- android:name=".BluetoothLeService" -->
-        <!-- android:enabled="true" -->
-        <!-- android:exported="true" /> -->
-        <!-- <activity -->
-        <!-- android:name=".DeviceControlActivity" -->
-        <!-- android:theme="@style/Theme.Com02.NoActionBar" /> -->
         <activity
             android:name=".DeviceScanActivity"
             android:enabled="true"
