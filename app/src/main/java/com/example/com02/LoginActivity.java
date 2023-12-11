@@ -28,7 +28,7 @@ import java.io.UnsupportedEncodingException;
 public class LoginActivity extends AppCompatActivity {
 
     EditText email,password;
-    Button login,join;
+    Button login,join,pw;
     RequestQueue queue;
     SharedPreferences sharedPreferences;
     public static final String mypreference = "com02";
@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         password=findViewById(R.id.editText_password);
         login=findViewById(R.id.btn_login); //로그인
         join=findViewById(R.id.btn_join);
+        pw = findViewById(R.id.btn_findPassword);
         queue= Volley.newRequestQueue(this);
         sharedPreferences=getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         String url="http://34.22.110.168:8001/user/login";
@@ -119,6 +120,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Join1Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        pw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Pw1Activity.class);
                 startActivity(intent);
             }
         });

@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class Join2Activity extends AppCompatActivity {
+public class Pw2Activity extends AppCompatActivity {
     private EditText editText_authcode;
     private TextView text_message;
     private Button btn_check;
@@ -38,7 +38,7 @@ public class Join2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join2);
+        setContentView(R.layout.activity_pw2);
 
         editText_authcode = findViewById(R.id.editText_authcode);
         btn_check = findViewById(R.id.btn_check);
@@ -67,7 +67,7 @@ public class Join2Activity extends AppCompatActivity {
                     String correctCode = preferences.getString("correctCode", "");
                     jsonRequest.put("correctCode", correctCode);
                     jsonRequest.put("inputCode", editText_authcode.getText().toString());
-                    Log.d("asdf", "Join2Activity : 입력한 인증코드 - " + editText_authcode.getText().toString());
+                    Log.d("asdf", "Pw2Activity : 입력한 인증코드 - " + editText_authcode.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -75,7 +75,7 @@ public class Join2Activity extends AppCompatActivity {
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url.toString(), jsonRequest, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("asdf", "Join2Activity : 응답 - " + response.toString());
+                        Log.d("asdf", "Pw2Activity : 응답 - " + response.toString());
 
                         try {
                             // 서버 응답에서 필요한 정보 추출
@@ -94,11 +94,11 @@ public class Join2Activity extends AppCompatActivity {
                             } else {
                                 btn_next.setClickable(false);
                                 Log.d("asdf", "인증코드 맞지 않음");
-                                Toast.makeText(Join2Activity.this, "인증코드가 맞지 않습니다", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Pw2Activity.this, "인증코드가 맞지 않습니다", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(Join2Activity.this, "JSON 파싱 오류", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Pw2Activity.this, "JSON 파싱 오류", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -130,7 +130,7 @@ public class Join2Activity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Join3Activity.class);
+                Intent intent = new Intent(getApplicationContext(), Pw3Activity.class);
                 startActivity(intent);
             }
         });

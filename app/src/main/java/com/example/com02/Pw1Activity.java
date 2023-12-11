@@ -1,32 +1,32 @@
 package com.example.com02;
 
-        import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.ImageView;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.android.volley.DefaultRetryPolicy;
-        import com.android.volley.Request;
-        import com.android.volley.RequestQueue;
-        import com.android.volley.Response;
-        import com.android.volley.VolleyError;
-        import com.android.volley.toolbox.JsonObjectRequest;
-        import com.android.volley.toolbox.Volley;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-        import java.io.UnsupportedEncodingException;
+import java.io.UnsupportedEncodingException;
 
-public class Join1Activity extends AppCompatActivity {
+public class Pw1Activity extends AppCompatActivity {
     private EditText editText_email;
     private TextView text_message;
     private Button btn_dupCheck;
@@ -39,11 +39,13 @@ public class Join1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_join1);
+        setContentView(R.layout.activity_pw1);
 
         editText_email = findViewById(R.id.editText_email);
         btn_dupCheck = findViewById(R.id.btn_dupCheck);
         text_message = findViewById(R.id.text_message);
+        text_message.setTextColor(getResources().getColor(R.color.red));
+        text_message.setText("가입되지 않은 이메일입니다");
         text_message.setVisibility(View.INVISIBLE);
         btn_next = findViewById(R.id.btn_next);
         btn_next.setClickable(false);
@@ -61,7 +63,7 @@ public class Join1Activity extends AppCompatActivity {
 
                 try {
                     url.append("http://test.com02cloud.kro.kr/user/check-email").append("?email=").append(editText_email.getText().toString());
-                    Log.d("asdf", "Join1Activity : 입력한 이메일 - " + editText_email.getText().toString());
+                    Log.d("asdf", "Pw1Activity : 입력한 이메일 - " + editText_email.getText().toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -81,24 +83,24 @@ public class Join1Activity extends AppCompatActivity {
                                 // 이메일 중복 여부에 따라 처리
                                 if (emailExists) {
                                     // 이메일이 중복되면
-                                    text_message.setTextColor(getResources().getColor(R.color.red));
-                                    text_message.setText("중복된 이메일입니다");
-                                    btn_next.setClickable(false);
+                                    text_message.setTextColor(getResources().getColor(R.color.green));
+                                    text_message.setText("가입된 이메일입니다");
+                                    btn_next.setClickable(true);
                                 } else {
                                     // 이메일이 중복되지 않으면
-                                    text_message.setTextColor(getResources().getColor(R.color.green));
-                                    text_message.setText("사용 가능한 이메일입니다");
-                                    btn_next.setClickable(true);
+                                    text_message.setTextColor(getResources().getColor(R.color.red));
+                                    text_message.setText("가입되지 않은 이메일입니다");
+                                    btn_next.setClickable(false);
                                 }
                                 text_message.setVisibility(View.VISIBLE);
                             } else {
                                 btn_next.setClickable(false);
                                 // 요청 실패
-                                Toast.makeText(Join1Activity.this, "서버 응답 오류", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Pw1Activity.this, "서버 응답 오류", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(Join1Activity.this, "JSON 파싱 오류", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Pw1Activity.this, "JSON 파싱 오류", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -131,7 +133,7 @@ public class Join1Activity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Join2Activity.class);
+                Intent intent = new Intent(getApplicationContext(), Pw2Activity.class);
                 startActivity(intent);
 
                 url = new StringBuilder();
@@ -140,7 +142,7 @@ public class Join1Activity extends AppCompatActivity {
                 JSONObject jsonRequest = new JSONObject();
                 try {
                     jsonRequest.put("email", editText_email.getText().toString());
-                    jsonRequest.put("isForJoin", true);
+                    jsonRequest.put("isForJoin", false);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -165,11 +167,11 @@ public class Join1Activity extends AppCompatActivity {
                                 editor.putString("correctCode", correctCode);
                                 editor.commit();
                             } else {
-                                Toast.makeText(Join1Activity.this, "메일 전송 오류", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Pw1Activity.this, "메일 전송 오류", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(Join1Activity.this, "JSON 파싱 오류", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Pw1Activity.this, "JSON 파싱 오류", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {
