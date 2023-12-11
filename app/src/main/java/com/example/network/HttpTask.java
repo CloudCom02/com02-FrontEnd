@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpTask {
 
-    private static final String BASE_URL = "http://10.0.2.2:8080/";
+    private static final String BASE_URL = "http://test.com02cloud.kro.kr/";
     private List<DeviceData> responseList = new ArrayList<>();
     private final SearchService searchService;
 

@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         pw = findViewById(R.id.btn_findPassword);
         queue= Volley.newRequestQueue(this);
         sharedPreferences=getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-        String url="http://34.22.110.168:8001/user/login";
+        String url="http://test.com02cloud.kro.kr/user/login";
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
