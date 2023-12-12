@@ -5,10 +5,10 @@ public class DeviceDTO {
     private String category;
     private Double batteryLevel;
 
-    public DeviceDTO(String deviceName, String category, Double batteryLevel) {
+    public DeviceDTO(String deviceName, String category) {
         this.deviceName = deviceName;
         this.category = category;
-        this.batteryLevel = batteryLevel;
+        this.batteryLevel = Double.valueOf(50);
     }
 
     public String getDeviceName() {
@@ -22,4 +22,5 @@ public class DeviceDTO {
     public Double getBatteryLevel() {
         return batteryLevel;
     }
+
 }

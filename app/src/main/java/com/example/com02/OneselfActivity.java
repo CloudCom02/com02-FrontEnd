@@ -3,12 +3,14 @@ package com.example.com02;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,8 +31,9 @@ public class OneselfActivity extends AppCompatActivity {
     EditText usingTime;
     EditText averageDays;
     Button addDeviceBtn;
-
     private StringBuilder url;
+    SharedPreferences sharedPreferences;
+    public static final String mypreference = "com02";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,14 @@ public class OneselfActivity extends AppCompatActivity {
         averageDays = (EditText) findViewById(R.id.averageDays);
         addDeviceBtn = (Button) findViewById(R.id.registerBtn);
 
-        int userId = 2;     // userId 변수로 수정 필요
+        // userId 얻기
+        sharedPreferences = getSharedPreferences(mypreference,MODE_PRIVATE);
+        long userId = sharedPreferences.getLong("userIdx", -1);
+        if (userId != -1) {
+            Log.d("userIdx", String.valueOf(userId));
+        } else {
+            Log.d("userIdx", "No userIdx found");
+        }
 
         //어디에나 있는 prev 버튼
         ImageButton backButton = findViewById(R.id.prevViewButton);
@@ -56,17 +66,21 @@ public class OneselfActivity extends AppCompatActivity {
             }
         });
 
+
         url = new StringBuilder();
-        RequestQueue queue = Volley.newRequestQueue(this);
+        RequestQueue queue = Volley.newRequestQueue(OneselfActivity.this);
+
         addDeviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Log.d("진입접", "OnClick 요청 직전" + String.valueOf(userId));
 
                 url.append("http://test.com02cloud.kro.kr/capacity/add");
 
                 JSONObject jsonBody = new JSONObject();
                 try {
+                    Log.d("요청 후 userIdx", String.valueOf(userId));
+
                     jsonBody.put("userId", Long.valueOf(userId));
                     jsonBody.put("deviceName", deviceName.getText().toString());
                     jsonBody.put("category", category.getText().toString());
@@ -103,6 +117,12 @@ public class OneselfActivity extends AppCompatActivity {
                     }
                 });
                 queue.add(request);
+
+                Toast.makeText(getApplicationContext(), "디바이스 추가 완료", Toast.LENGTH_LONG).show();
+
+                //device 리스트 activity로 전환
+                Intent intent = new Intent(OneselfActivity.this, DeviceListActivity.class);
+                startActivity(intent);
             }
         });
     }

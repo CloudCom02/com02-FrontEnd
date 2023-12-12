@@ -48,6 +48,22 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_findDevice" />
 
     <Button
+        android:id="@+id/deviceListBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/click_white_box"
+        android:text="내 기기 목록"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_mypage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_findDevice"
+        app:layout_constraintVertical_bias="0.733" />
+
+    <Button
         android:id="@+id/btn_mypage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

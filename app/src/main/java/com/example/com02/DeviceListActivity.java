@@ -1,7 +1,9 @@
 package com.example.com02;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +38,8 @@ public class DeviceListActivity extends AppCompatActivity {
     ImageButton bluetoothBtn;
     private StringBuilder url;
     private List<DeviceDTO> deviceDTOList = new ArrayList<>();
+    SharedPreferences sharedPreferences;
+    public static final String mypreference = "com02";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,15 @@ public class DeviceListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_device_list);
 
         ListView listView = findViewById(R.id.tableList);
+        sharedPreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+
+        long userId = sharedPreferences.getLong("userIdx",-1);
+        if (userId != -1) {
+            Log.d("userIdx", String.valueOf(userId));
+        } else {
+            Log.d("userIdx", "No userIdx found");
+        }
+
 
         //어디에나 있는 prev 버튼
         ImageButton backButton = findViewById(R.id.prevViewButton);
@@ -57,12 +70,11 @@ public class DeviceListActivity extends AppCompatActivity {
 
         deviceDTOList = new ArrayList<>();
 
-        int userId = 2;       // userId 변수로 수정 필요
-
         url = new StringBuilder();
         RequestQueue queue = Volley.newRequestQueue(this);
-        url.append("http://test.com02cloud.kro.kr/capacity/list/").append(Long.valueOf(userId));
 
+        // 사용자의 디바이스 리스트
+        url.append("http://test.com02cloud.kro.kr/capacity/list/").append(userId);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url.toString(), null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -80,12 +92,9 @@ public class DeviceListActivity extends AppCompatActivity {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                             deviceDTO = new DeviceDTO(jsonObject.getString("deviceName"),
-                                    jsonObject.getString("category"),
-                                    jsonObject.getDouble("batteryLevel"));
+                                    jsonObject.getString("category"));
 
                             deviceDTOList.add(deviceDTO);
-
-                            Log.d("DTO 값: ", deviceDTOList.toString());
                         }
                         DeviceAdapter adapter = new DeviceAdapter(DeviceListActivity.this, deviceDTOList);
                         listView.setAdapter(adapter);
@@ -97,26 +106,25 @@ public class DeviceListActivity extends AppCompatActivity {
                 }
             }
         }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error){
-                    Log.d("volleyError", "에러 발생" + error.toString());
-                    if (error.networkResponse != null && error.networkResponse.data != null) {
-                        try {
-                            String errorResponse = new String(error.networkResponse.data, "utf-8");
-                            JSONObject jsonObject = new JSONObject(errorResponse);
-                            String errorMessage = jsonObject.getString("errorMessage");
-                            // Handle BaseException
-                            Log.d("VolleyError", "BaseException: " + errorMessage);
-                        } catch (UnsupportedEncodingException | JSONException e) {
-                            e.printStackTrace();
-                        }
+            @Override
+            public void onErrorResponse(VolleyError error){
+                Log.d("volleyError", "에러 발생" + error.toString());
+                if (error.networkResponse != null && error.networkResponse.data != null) {
+                    try {
+                        String errorResponse = new String(error.networkResponse.data, "utf-8");
+                        JSONObject jsonObject = new JSONObject(errorResponse);
+                        String errorMessage = jsonObject.getString("errorMessage");
+                        // Handle BaseException
+                        Log.d("VolleyError", "BaseException: " + errorMessage);
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        e.printStackTrace();
                     }
                 }
+            }
         });
 
         queue.add(request);
 
-        Log.d("DTO 값: ", deviceDTOList.toString());
         DeviceAdapter adapter = new DeviceAdapter(this, deviceDTOList);
         listView.setAdapter(adapter);
 
@@ -127,6 +135,7 @@ public class DeviceListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DeviceDTO clickDevice = deviceDTOList.get(position);
                 Intent intent = new Intent(DeviceListActivity.this, DeviceDetailActivity.class);
+                Log.d("인텐트 값 정보", String.valueOf(clickDevice.getDeviceName()));
                 intent.putExtra("deviceName", clickDevice.getDeviceName());
                 startActivity(intent);
             }

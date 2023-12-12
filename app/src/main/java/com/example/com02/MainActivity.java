@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         Button findDeviceButton = findViewById(R.id.btn_findDevice);
         Button addDeviceButton = findViewById(R.id.btn_addDevice);
         Button mypage = findViewById(R.id.btn_mypage);
+        Button myDeviceList = findViewById(R.id.deviceListBtn);
 
         findDeviceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +33,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        myDeviceList.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, DeviceListActivity.class);
                 startActivity(intent);
             }
         });

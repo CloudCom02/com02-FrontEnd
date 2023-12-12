@@ -72,6 +72,7 @@ public class DeviceDetailActivity extends AppCompatActivity {
 
         deviceName = getIntent().getStringExtra("deviceName");
         deviceNameEdit.setText(deviceName);
+        Log.d("인텐트로 받아온 값", String.valueOf(deviceName));
 
         url = new StringBuilder();
         RequestQueue queue = Volley.newRequestQueue(this);
